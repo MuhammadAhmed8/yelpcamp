@@ -1,0 +1,78 @@
+<% layout('layouts/boilerplate')%>
+<div style="position: relative;">
+  <div id="cluster-map"></div>
+  <div class="search-div">
+    <div>
+    <div>
+      <%- include('../partials/search.ejs') %>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="container">
+    <h1 class="display-4 main-heading">Find Campgrounds</h1>
+
+    <div class="pb-5 d-flex align-items-center justify-content-end sort-filter">
+      <p class="m-0 mr-3 text-dark font-weight-bold">Sort</p>
+      <a  class="btn position-relative mr-2" href="?sort=rating">
+        Rating
+      </a>
+      <a class="btn position-relative mr-2" href="?sort=recent">
+        Recent
+      </a>
+      <a class="btn position-relative mr-2" href="?sort=price">
+        Price
+      </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+
+        <% campgrounds.forEach((campground)=>{%>
+        <div class="col" >
+          <a href="/campgrounds/<%= campground.id %>" style="color:black; text-decoration: none;">
+          <div class="card" style="height: 305px;box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+            <img src="<%= campground.images[0].url %>" class="card-img-top img-fluid" style="height: 220px;" alt="<%=campground.title%>">
+            <div class="card-body">
+              <h5 class="card-title" ><%= campground.title %></h5>
+              <div class="card-description">
+                <p class="card-text m-0">
+                  <small class="text-muted"><%= campground.location || 'Seattle, USA'%></small>
+                </p>
+                <p class="card-text m-0">
+                  <small class="text-muted">$<%= campground.price || '0'%></small>
+                </p>
+              </div>
+              
+            </div>
+          </div>
+          </a>
+        </div>
+        <% }) %>
+
+
+    </div>
+
+
+    <div class="mx-auto my-5">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item <%= page <= 1? "disabled": ""%>">
+            <a class="page-link" href="?<%= queryString %>&page=<%= page-1 %>">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="?<%= queryString %>&page=1">1</a></li>
+          <li class="page-item"><a class="page-link" href="?<%= queryString %>&page=2">2</a></li>
+          <li class="page-item"><a class="page-link" href="?<%= queryString %>&page=3">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="?<%= queryString %>&page=<%= page + 1%>">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+
+<script>
+    const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    const campgrounds = { features: <%- JSON.stringify(campgrounds) %>}
+</script>
+
+<script src="/javascripts/clusterMap.js"></script>
