@@ -18,7 +18,7 @@ const BaseUrl = "https://helpme-restapi.herokuapp.com/";
 exports.registerUserByEmail = async (userDTO) => {
      
         if (await User.findOne({email: userDTO.email}, {_id:1} ) ){
-            throw new ApiError(httpstatus.UNAUTHORIZED,"User already exists");
+            throw new ApiError(httpStatus.UNAUTHORIZED,"User already exists");
         }
 
         let salt = crypto.randomBytes(32);
