@@ -1,3 +1,4 @@
+require("dotenv").config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -12,21 +13,37 @@ var campgroundReviewRouter = require('./routes/campgroundReviews');
 const ejsMate = require('ejs-mate');
 const session = require("express-session");
 const flash = require("connect-flash");
-
+const compression = require('compression');
+const helmet = require('helmet');
 
 var app = express();
 var port = process.env.PORT || 3100;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 
-app.use(session({secret: "UHDueudfnsuhdsmcejifjecekcfefe4f4edf5ef5e4s7dwfe7s55fef8"}));
+app.use(session({
+  name: 'myp',
+  secret:process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie:{
+    httpOnly:true,
+    expires: Date.now() + 1000*60*60*24*7,
+    maxAge: 1000*60*60*24*7
+  }
+}));
+
+app.use(helmet({
+  contentSecurityPolicy: false
+}))
+app.use(compression());
+
 app.use(flash());
 app.use(logger('dev'));
-// app.use(express.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -62,8 +79,7 @@ app.use((err, req, res, next) => {
 });
 
 
-
-const conn = `mongodb+srv://maak:ln(lne)=0@cluster0.ucv4x.mongodb.net/yelpcamp?retryWrites=true&w=majority`;
+const conn = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.ucv4x.mongodb.net/${process.env.MONGO_DBNAME}?retryWrites=true&w=majority`;
 
    mongoose.connect(conn,{ useNewUrlParser: true })
   .then((result) => {

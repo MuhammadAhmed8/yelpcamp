@@ -1,12 +1,11 @@
-const Joi = require('joi');
+const Joi = require("./extended-joi");
 
 exports.createCampgroundVal = {
     body: Joi.object().keys({
-        title: Joi.string().required(),
+        title: Joi.string().required().escapeHTML(),
         price: Joi.number().required().min(0),
-        location: Joi.string().required(),
-        description: Joi.string().required(),
-        image: Joi.string()
+        location: Joi.string().required().escapeHTML(),
+        description: Joi.string().required().escapeHTML(),
     }).required()
 };
 

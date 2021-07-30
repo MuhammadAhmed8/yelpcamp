@@ -1,8 +1,8 @@
 <% layout('layouts/boilerplate')%>
 <div class="row">
-    <h1 class="text-center">New Campground</h1>
-    <div class="col-md-6 offset-md-3">
-        <form action="/campgrounds" method="POST" novalidate class="validated-form">
+    <h1 style="font-family: 'Poppins';padding:20px;padding-top:30px; padding-bottom: 15px;text-align: center;">Post a Campground</h1>
+    <div class="col-sm-12 col-md-6 offset-md-3 p-4">
+        <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control" type="text" id="title" name="title" required>
@@ -19,10 +19,12 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="image">Image</label>
-                <input class="form-control" type="text" id="image" name="image" required>
-                <div class="valid-feedback">
-                    Looks good!
+                <div class="form-file custom-file">
+                    <input type="file" class="form-file-input" id="image" name="image" multiple>
+                    <label class="form-file-label" for="image">
+                        <span class="form-file-text custom-file-label">Choose image(s)...</span>
+                        <span class="form-file-button">Browse</span>
+                    </label>
                 </div>
             </div>
 
@@ -47,11 +49,11 @@
                     Looks good!
                 </div>
             </div>
+
            
-            <div class="mb-3">
-                <button class="btn btn-success">Add Campground</button>
+            <div class="mb-5 mt-4 text-center">
+                <button class="btn btn-success" style="background-color:#6504b4; border-color:#6504b4">Save Campground</button>
             </div>
         </form>
-        <a href="/campgrounds">All Campgrounds</a>
     </div>
 </div>

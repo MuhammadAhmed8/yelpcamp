@@ -6,11 +6,13 @@ const ApiError = require("../utils/ApiError");
 const validate = require("../middlewares/validate");
 const auth = require("../middlewares/auth");
 const {createCampgroundVal} = require("../utils/validations/campground-val");
-require("dotenv").config();
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const {pick,makeQueryString} = require("../utils/pick");
+const multer = require('multer');
+const { storage } = require("../cloudinary");
+const upload = multer({ storage });
 
 // Get All Campgrounds 
 router.get("/",catchError(async (req,res,next)=>{
@@ -32,18 +34,16 @@ router.get("/",catchError(async (req,res,next)=>{
 }))
 
 // Create New Campground 
-router.post("/",auth, validate(createCampgroundVal), async (req,res,next)=>{
+router.post("/",auth, upload.array('image'), validate(createCampgroundVal),async (req,res,next)=>{
     
-    const {title, description, price, image, location} = req.body;
-
+    const {title, description, price, location} = req.body;
+    console.log(req.body, "sdddd");
     const geoData = await geocoder.forwardGeocode({
         query: location,
         limit: 1
-    }).send()
+    }).send();
 
-    const images = [{
-        url: image
-    }]
+    const images = req.files.map(f => ({ url: f.path, filename: f.filename }));
 
     const geometry = geoData.body.features[0].geometry;
 
