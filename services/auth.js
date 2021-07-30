@@ -157,25 +157,3 @@ function _mapToTokenUser(userRecord){
 
 
 
-
-/*
-    Testing manually !
-*/
-function test(){
-    let a = new AuthService();
-    let user = {
-        username: "haris",
-        password: "haris",
-        firstName: "Haris",
-        lastName: "Khan",
-        phone: "03332245120"
-    }
-    a.signUp(user)
-    .then(result => {
-        console.log(result);
-    })
-    .catch(err => {
-        console.log(err);
-    })
-}
-

@@ -10,7 +10,6 @@ const app = express();
 //Require Logout
 app.use((req,res,next)=>{
     if(req.session.user_id){
-        console.log('one more chuu')
         const redirectUrl = '/campgrounds';
         return res.redirect(redirectUrl);
     }
@@ -19,7 +18,6 @@ app.use((req,res,next)=>{
 
 // Render Login Page
 router.get("/login", (req, res, next) => {
-    console.log("Fff", req.originalUrl);
 
     res.render("auth/login");
 

@@ -27,9 +27,6 @@ router.get("/",catchError(async (req,res,next)=>{
 
     const campgrounds = await CampgroundService.getCampgrounds(filter, {limit, skip, sortBy});
 
-
-    console.log(queryString,"cc",page);
-
     res.render('campgrounds/index', {...campgrounds, page, queryString } );
 }))
 
@@ -37,7 +34,7 @@ router.get("/",catchError(async (req,res,next)=>{
 router.post("/",auth, upload.array('image'), validate(createCampgroundVal),async (req,res,next)=>{
     
     const {title, description, price, location} = req.body;
-    console.log(req.body, "sdddd");
+    
     const geoData = await geocoder.forwardGeocode({
         query: location,
         limit: 1
@@ -57,7 +54,6 @@ router.post("/",auth, upload.array('image'), validate(createCampgroundVal),async
 
 // Get 'create campground' page
 router.get("/new",auth, (req,res,next)=>{
-    console.log("new current suser" , req.user);
     res.render("campgrounds/new")
 })
 
