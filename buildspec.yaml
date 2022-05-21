@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+    commands:
+      - npm install
+      
+artifacts:
+  files:
+    - app.js
+    - config/**/*
+    - controller/**/*
+    - model/*
+    - views/**/*
