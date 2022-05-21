@@ -6,11 +6,3 @@ phases:
       nodejs: 16
     commands:
       - npm install
-      
-artifacts:
-  files:
-    - app.js
-    - config/**/*
-    - controller/**/*
-    - model/*
-    - views/**/*
