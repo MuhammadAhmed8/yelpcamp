@@ -17,7 +17,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 
 var app = express();
-var port = process.env.PORT || 3100;
+var port = process.env.PORT || 8081;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
