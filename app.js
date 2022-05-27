@@ -26,7 +26,7 @@ app.set('view engine', 'ejs');
 
 app.use(session({
   name: 'myp',
-  secret:process.env.SESSION_SECRET,
+  secret:"Lu9EJ_nyyL9dNNgfW8l3ajoibWFhayIsIm45172EiOiJja3JueWFtZXAwcWJzMndycWg0bWXCwoD1c",
   resave: false,
   saveUninitialized: true,
   cookie:{
@@ -79,7 +79,7 @@ app.use((err, req, res, next) => {
 });
 
 
-const conn = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.ucv4x.mongodb.net/${process.env.MONGO_DBNAME}?retryWrites=true&w=majority`;
+const conn = `mongodb+srv://maak:ln(lne)=0@cluster0.ucv4x.mongodb.net/yelpcamp?retryWrites=true&w=majority`;
 
    mongoose.connect(conn,{ useNewUrlParser: true })
   .then((result) => {
