@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build": "echo build here"
   },
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.13.0",
