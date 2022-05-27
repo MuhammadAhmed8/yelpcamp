@@ -6,3 +6,12 @@ phases:
       nodejs: 16
     commands:
       - npm install
+  build:
+    commands:
+      - npm run build
+artifacts:
+  files:
+    - '*/'
+  discard-paths: 'no'
+  base-directory: ./
+
